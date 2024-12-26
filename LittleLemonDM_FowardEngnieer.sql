@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema LittleLemonDB
+-- Schema LittleLemonDM
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema LittleLemonDB
+-- Schema LittleLemonDM
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `LittleLemonDB` DEFAULT CHARACTER SET utf8 ;
-USE `LittleLemonDB` ;
+CREATE SCHEMA IF NOT EXISTS `LittleLemonDM` DEFAULT CHARACTER SET utf8 ;
+USE `LittleLemonDM` ;
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`Customers`
+-- Table `LittleLemonDM`.`Customers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Customers` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Customers` (
   `CustomerID` VARCHAR(255) NOT NULL,
   `FullName` VARCHAR(255) NOT NULL,
   `ContactNumber` INT NOT NULL,
@@ -27,9 +27,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`Bookings`
+-- Table `LittleLemonDM`.`Bookings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Bookings` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Bookings` (
   `BookingID` VARCHAR(255) NOT NULL,
   `TableNumber` INT NOT NULL,
   `BookingDate` DATETIME NOT NULL,
@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Bookings` (
   INDEX `CustomerID_fk_idx` (`CustomerID` ASC) VISIBLE,
   CONSTRAINT `CustomerID_fk`
     FOREIGN KEY (`CustomerID`)
-    REFERENCES `LittleLemonDB`.`Customers` (`CustomerID`)
+    REFERENCES `LittleLemonDM`.`Customers` (`CustomerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`MenuItem`
+-- Table `LittleLemonDM`.`MenuItem`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`MenuItem` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`MenuItem` (
   `ItemID` VARCHAR(255) NOT NULL,
   `CourseName` VARCHAR(255) NOT NULL,
   `StarterName` VARCHAR(255) NOT NULL,
@@ -57,9 +57,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`Menus`
+-- Table `LittleLemonDM`.`Menus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Menus` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Menus` (
   `MenuID` VARCHAR(255) NOT NULL,
   `ItemID` VARCHAR(255) NOT NULL,
   `MenuName` VARCHAR(255) NOT NULL,
@@ -69,16 +69,16 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Menus` (
   INDEX `ItemID_idx` (`ItemID` ASC) VISIBLE,
   CONSTRAINT `Menus_ItemID`
     FOREIGN KEY (`ItemID`)
-    REFERENCES `LittleLemonDB`.`MenuItem` (`ItemID`)
+    REFERENCES `LittleLemonDM`.`MenuItem` (`ItemID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`Staff`
+-- Table `LittleLemonDM`.`Staff`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Staff` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Staff` (
   `StaffID` VARCHAR(255) NOT NULL,
   `Role` VARCHAR(255) NOT NULL,
   `Salary` DECIMAL(10,2) NOT NULL,
@@ -87,9 +87,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`Orders`
+-- Table `LittleLemonDM`.`Orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Orders` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Orders` (
   `OrderID` VARCHAR(255) NOT NULL,
   `MenuID` VARCHAR(255) NOT NULL,
   `CustomerID` VARCHAR(255) NOT NULL,
@@ -103,26 +103,26 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Orders` (
   INDEX `Orders.StaffID_idx` (`StaffID` ASC) VISIBLE,
   CONSTRAINT `Orders.MenuID`
     FOREIGN KEY (`MenuID`)
-    REFERENCES `LittleLemonDB`.`Menus` (`MenuID`)
+    REFERENCES `LittleLemonDM`.`Menus` (`MenuID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Orders.CustomerID`
     FOREIGN KEY (`CustomerID`)
-    REFERENCES `LittleLemonDB`.`Customers` (`CustomerID`)
+    REFERENCES `LittleLemonDM`.`Customers` (`CustomerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Orders.StaffID`
     FOREIGN KEY (`StaffID`)
-    REFERENCES `LittleLemonDB`.`Staff` (`StaffID`)
+    REFERENCES `LittleLemonDM`.`Staff` (`StaffID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LittleLemonDB`.`DeliveryStatus`
+-- Table `LittleLemonDM`.`DeliveryStatus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`DeliveryStatus` (
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`DeliveryStatus` (
   `DeliveryID` VARCHAR(55) NOT NULL,
   `OrderID` VARCHAR(255) NOT NULL,
   `Status` VARCHAR(255) NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`DeliveryStatus` (
   INDEX `OrderID_idx` (`OrderID` ASC) VISIBLE,
   CONSTRAINT `OrderID_fk`
     FOREIGN KEY (`OrderID`)
-    REFERENCES `LittleLemonDB`.`Orders` (`OrderID`)
+    REFERENCES `LittleLemonDM`.`Orders` (`OrderID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
