@@ -18,10 +18,10 @@ USE `LittleLemonDB` ;
 -- Table `LittleLemonDB`.`Customers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Customers` (
-  `CustomerID` INT NOT NULL AUTO_INCREMENT,
-  `FullName` VARCHAR(100) NOT NULL,
+  `CustomerID` VARCHAR(255) NOT NULL,
+  `FullName` VARCHAR(255) NOT NULL,
   `ContactNumber` INT NOT NULL,
-  `Email` VARCHAR(100) NOT NULL,
+  `Email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`CustomerID`))
 ENGINE = InnoDB;
 
@@ -30,10 +30,10 @@ ENGINE = InnoDB;
 -- Table `LittleLemonDB`.`Bookings`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Bookings` (
-  `BookingID` INT NOT NULL AUTO_INCREMENT,
-  `TableNumber` INT NULL,
-  `BookingDate` DATETIME NULL,
-  `CustomerID` INT NULL,
+  `BookingID` VARCHAR(255) NOT NULL,
+  `TableNumber` INT NOT NULL,
+  `BookingDate` DATETIME NOT NULL,
+  `CustomerID` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`BookingID`),
   INDEX `CustomerID_fk_idx` (`CustomerID` ASC) VISIBLE,
   CONSTRAINT `CustomerID_fk`
@@ -48,10 +48,10 @@ ENGINE = InnoDB;
 -- Table `LittleLemonDB`.`MenuItem`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`MenuItem` (
-  `ItemID` INT NOT NULL AUTO_INCREMENT,
-  `CourseName` VARCHAR(100) NOT NULL,
-  `StarterName` VARCHAR(100) NOT NULL,
-  `DesertName` VARCHAR(100) NOT NULL,
+  `ItemID` VARCHAR(255) NOT NULL,
+  `CourseName` VARCHAR(255) NOT NULL,
+  `StarterName` VARCHAR(255) NOT NULL,
+  `DesertName` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`ItemID`))
 ENGINE = InnoDB;
 
@@ -60,11 +60,11 @@ ENGINE = InnoDB;
 -- Table `LittleLemonDB`.`Menus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Menus` (
-  `MenuID` INT NOT NULL AUTO_INCREMENT,
-  `ItemID` INT NOT NULL,
-  `MenuName` VARCHAR(100) NOT NULL,
+  `MenuID` VARCHAR(255) NOT NULL,
+  `ItemID` VARCHAR(255) NOT NULL,
+  `MenuName` VARCHAR(255) NOT NULL,
   `MenuType` VARCHAR(45) NOT NULL,
-  `Price` DECIMAL(5,2) NOT NULL,
+  `Price` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`MenuID`),
   INDEX `ItemID_idx` (`ItemID` ASC) VISIBLE,
   CONSTRAINT `ItemID`
@@ -76,15 +76,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `LittleLemonDB`.`Staff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Staff` (
+  `StaffID` VARCHAR(255) NOT NULL,
+  `Role` VARCHAR(255) NOT NULL,
+  `Salary` DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (`StaffID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `LittleLemonDB`.`Orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Orders` (
-  `OrderID` INT NOT NULL AUTO_INCREMENT,
-  `MenuID` INT NOT NULL,
-  `CustomerID` INT NOT NULL,
-  `TotalCost` DECIMAL(5,2) NOT NULL,
+  `OrderID` VARCHAR(255) NOT NULL,
+  `MenuID` VARCHAR(255) NOT NULL,
+  `CustomerID` VARCHAR(255) NOT NULL,
+  `TotalCost` DECIMAL(10,2) NOT NULL,
   `OrderDate` DATETIME NOT NULL,
   `Quantity` INT NOT NULL,
+  `StaffID` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`OrderID`),
   INDEX `MenuID_idx` (`MenuID` ASC) VISIBLE,
   INDEX `CustomerID_idx` (`CustomerID` ASC) VISIBLE,
@@ -97,6 +109,11 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`Orders` (
     FOREIGN KEY (`CustomerID`)
     REFERENCES `LittleLemonDB`.`Customers` (`CustomerID`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `StaffID`
+    FOREIGN KEY ()
+    REFERENCES `LittleLemonDB`.`Staff` ()
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -105,9 +122,9 @@ ENGINE = InnoDB;
 -- Table `LittleLemonDB`.`DeliveryStatus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`DeliveryStatus` (
-  `DeliveryID` INT NOT NULL AUTO_INCREMENT,
-  `OrderID` INT NOT NULL,
-  `Status` VARCHAR(100) NOT NULL,
+  `DeliveryID` VARCHAR(55) NOT NULL,
+  `OrderID` VARCHAR(255) NOT NULL,
+  `Status` VARCHAR(255) NOT NULL,
   `DeliveryDate` DATETIME NOT NULL,
   PRIMARY KEY (`DeliveryID`),
   INDEX `OrderID_idx` (`OrderID` ASC) VISIBLE,
