@@ -1,0 +1,62 @@
+Scenario
+Little Lemon needs you to help them to build a Booking System so that their guests can book tables with the restaurant. Use your knowledge of database clients to help Little Lemon complete this task.
+
+
+Prerequisites
+To complete this task, you need to create a folder and then open a command prompt at that location. Next, to start writing code to create the booking system, you first need to ensure that you have Python installed, a working IDE and configured a driver that you can use to interact with your database.
+
+
+Task Instructions
+Complete the following tasks to set up the client project.
+
+
+Task 1
+Your first task is to navigate to your terminal and ensure that Python is installed and available on the command path. To complete this task, type the following syntax:
+
+1
+python --version
+
+This should display the version number of the python installed. Your OS should be running Python version 3. If faced with an earlier version of Python, or a command not found message, navigate to 
+https://www.python.org/downloads/
+ for instructions on how to configure and install an appropriate version for your operating system. 
+
+
+Task 2
+Having established that an up-to date version of python is installed on your machine you will need to install Jupyter. You can install Jupyter using the following code: 
+
+1
+python -m pip install jupyter
+
+Once Jupyter is installed, you can open a notebook by typing the following command in the terminal:
+
+1
+jupyter notebook 
+
+Once you’ve opened Jupyter, you then need to create a new notebook for writing your code by clicking new and then selecting ipykernel. This action creates a new notebook from which you can compile code.
+
+
+Task 3
+Your third and final task is to establish a connection between Python and your database using the following steps:
+
+
+Step One: 
+
+Ensure that mysql-connector is installed by running the command:
+
+1
+!pip install mysql-connector-python
+
+Step Two: 
+
+Import the connector under the alias connector:
+
+1
+import mysql.connector as connector
+
+Step Three: 
+
+Verify that a connection can be made with your database by calling the connection method from the connector class: 
+
+1
+connection = connector.connect(user = "your_user_name", password = "your_password_for_database")
+
